@@ -11,11 +11,9 @@ import GameplayKit
 
 class GameScene: SKScene {
 
-    let background = SKSpriteNode(imageNamed: "background")
+    let background = SKSpriteNode(imageNamed: "background1")
     
     override func didMove(to view: SKView) {
-        
-        
-
+      
 }
 }
