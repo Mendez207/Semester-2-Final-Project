@@ -27,7 +27,7 @@ class GameScene: SKScene {
         for i in 0...3 {
             let ground = SKSpriteNode(imageNamed: "background1")
             ground.name = "background"
-            ground.size = CGSize(width: (self.scene?.size.width)!, height: 250)
+            ground.size = CGSize(width: (self.scene?.size.width)!, height: (self.scene?.size.height)!)
             ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             ground.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 2))
        
