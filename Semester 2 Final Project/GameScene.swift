@@ -11,16 +11,39 @@ import GameplayKit
 
 class GameScene: SKScene {
 
-    let background = SKSpriteNode(imageNamed: "background1")
-    let background2 = SKSpriteNode(imageNamed: "background1")
-    
+    var ground = SKSpriteNode()
     
     override func didMove(to view: SKView) {
-        backgroundColor = SKColor.blue
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        createGrounds()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        moveGrounds()
+    }
+    
+    func createGrounds() {
         
-        background.anchorPoint =
-        background.position =
-        background.zPosition =
-        addChild(background)
-}
+        for i in 0...3 {
+            let ground = SKSpriteNode(imageNamed: "background1")
+            ground.name = "background"
+            ground.size = CGSize(width: (self.scene?.size.width)!, height: 250)
+            ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            ground.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 2))
+       
+            self.addChild(ground)
+        }
+    }
+    func moveGrounds() {
+        self.enumerateChildNodes(withName: "background", using: ({
+            (node,error) in
+    
+            node.position.x -= 2
+            
+            if node.position.x < -((self.scene?.size.width)!){
+                node.position.x += (self.scene?.size.width)! * 3
+            }
+        }))
+    }
+
 }
