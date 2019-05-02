@@ -17,15 +17,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //    scoreLabel.text = "Score: \(score)"
         }
     }
-    
+    var character = SKSpriteNode()
     
 
     var ground = SKSpriteNode()
     
     override func didMove(to view: SKView) {
+        character = self.childNode(withName: "Character") as! SKSpriteNode
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         createGrounds()
-        
+
         // Score
         
 //        scoreLabel = SKLabelNode(text: "Score: 0")
@@ -64,5 +65,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }))
     }
+    
 
 }
