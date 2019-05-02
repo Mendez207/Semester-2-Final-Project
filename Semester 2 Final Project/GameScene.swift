@@ -58,7 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.enumerateChildNodes(withName: "background", using: ({
             (node,error) in
     
-            node.position.x -= 2
+            node.position.x -= 10
             
             if node.position.x < -((self.scene?.size.width)!){
                 node.position.x += (self.scene?.size.width)! * 3
