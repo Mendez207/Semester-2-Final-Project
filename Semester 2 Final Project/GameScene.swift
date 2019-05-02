@@ -11,10 +11,10 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var scoreLabel: SKEmitterNode!
+    var scoreLabel: SKLabelNode!
     var score: Int = 0 {
         didSet {
-        //    scoreLabel.text = "Score: \(score)"
+            scoreLabel.text = "Score: \(score)"
         }
     }
     
@@ -28,8 +28,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Score
         
-//        scoreLabel = SKLabelNode(text: "Score: 0")
-//        scoreLabel
+        scoreLabel.text = "Score: 0"
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.position = CGPoint(x: -400, y: 240)
+        addChild(scoreLabel)
+        
+        // add/subtract score
+        func collisionBetween(character: SKNode, object: SKNode) {
+            if object.name == "token" {
+                score += 1
+            } else if object.name == "enemy" {
+                score -= 1
+            }
+            
+        }
+        
         
         
     }
