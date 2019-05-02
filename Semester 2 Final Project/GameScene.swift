@@ -17,15 +17,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scoreLabel.text = "Score: \(score)"
         }
     }
-    
+    var character = SKSpriteNode()
     
 
     var ground = SKSpriteNode()
     
     override func didMove(to view: SKView) {
+        character = self.childNode(withName: "Character") as! SKSpriteNode
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         createGrounds()
-        
+
         // Score
         
         scoreLabel.text = "Score: 0"
@@ -70,12 +71,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.enumerateChildNodes(withName: "background", using: ({
             (node,error) in
     
-            node.position.x -= 2
+            node.position.x -= 10
             
             if node.position.x < -((self.scene?.size.width)!){
                 node.position.x += (self.scene?.size.width)! * 3
             }
         }))
     }
+    
 
 }
