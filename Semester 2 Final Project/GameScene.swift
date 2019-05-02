@@ -11,7 +11,12 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-
+    var scoreLabel: SKEmitterNode!
+    var score: Int = 0 {
+        didSet {
+        //    scoreLabel.text = "Score: \(score)"
+        }
+    }
     
     
 
@@ -20,6 +25,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         createGrounds()
+        
+        // Score
+        
+//        scoreLabel = SKLabelNode(text: "Score: 0")
+//        scoreLabel
+        
+        
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -36,7 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ground.name = "background"
             ground.size = CGSize(width: (self.scene?.size.width)!, height: (self.scene?.size.height)!)
             ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            ground.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 2))
+            ground.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 3000))
        
             self.addChild(ground)
         }
