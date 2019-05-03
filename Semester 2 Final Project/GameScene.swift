@@ -29,10 +29,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // Score
         
-        scoreLabel.text = "Score: 0"
+        scoreLabel = SKLabelNode(text: "Score: 0")
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: -400, y: 240)
-        addChild(scoreLabel)
+        scoreLabel.fontSize = 40
+        scoreLabel.fontColor = .black
+     
+       self.addChild(scoreLabel)
         
         // add/subtract score
         func collisionBetween(character: SKNode, object: SKNode) {
