@@ -87,4 +87,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view?.addGestureRecognizer(upSwipeRecognizer)
     }
     
+    func whenswippedUp () {
+        
+    }
+    
 }
