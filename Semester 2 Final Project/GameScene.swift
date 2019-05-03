@@ -79,5 +79,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }))
     }
     
+    func createGestureRecognizer() {
+        let upSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swiped:")
+        upSwipeRecognizer.direction = .right
+        self.view?.addGestureRecognizer(upSwipeRecognizer)
+    }
+    
+    
 
 }
