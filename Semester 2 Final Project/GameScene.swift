@@ -23,7 +23,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var ground = SKSpriteNode()
     
     override func didMove(to view: SKView) {
-        character = self.childNode(withName: "Character") as! SKSpriteNode
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         createGrounds()
 
@@ -88,6 +87,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view?.addGestureRecognizer(upSwipeRecognizer)
     }
     
-    
-
 }
