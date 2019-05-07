@@ -13,7 +13,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var player: SKSpriteNode!
     
-    var scoreLabel: SKLabelNode!
     var score: Int = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -26,7 +25,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
 //        character = self.childNode(withName: "Character") as! SKSpriteNode
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         createGrounds()
 
         // Score
@@ -47,11 +45,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 score -= 1
                 
                 
+                
                 player = SKSpriteNode(imageNamed: "bunny")
                 player.position = CGPoint(x: -376, y: -65)
                 self.addChild(player)
-            }
         }
+    }
     }
     
     func random() -> CGFloat {
@@ -80,20 +79,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-    
     override func update(_ currentTime: TimeInterval) {
         moveGrounds()
     }
     
     func createGrounds() {
         for i in 0...3 {
+        
+        
+        
+        
             let ground = SKSpriteNode(imageNamed: "background1")
             ground.name = "background"
             ground.size = CGSize(width: (self.scene?.size.width)!, height: (self.scene?.size.height)!)
             ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             ground.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 3000))
              ground.zPosition = -1
-       
             self.addChild(ground)
         }
     }
@@ -109,5 +110,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }))
     }
 
-
+    
+    func createGestureRecognizer() {
+//        let jumpGestureRecognizer = UITapGestureRecognizer(target: self
+//            , action: #selector(tap))
+//
+//        view?.addGestureRecognizer(jumpGestureRecognizer)
+        
+        
+        let upSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swiped:"))
+        upSwipeRecognizer.direction = .up
+        self.view?.addGestureRecognizer(upSwipeRecognizer)
+    }
+    
+    
+//    @objc func swiped (upSwipeRecognizer: UIGestureRecognizer) {
+//        print("Jump")
+//    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
