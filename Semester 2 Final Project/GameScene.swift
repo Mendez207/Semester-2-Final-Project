@@ -10,9 +10,10 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
+
     var player: SKSpriteNode!
     
+     var scoreLabel: SKLabelNode!
     var score: Int = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -49,10 +50,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 player = SKSpriteNode(imageNamed: "bunny")
                 player.position = CGPoint(x: -376, y: -65)
                 self.addChild(player)
+                
+                run(SKAction.repeatForever(
+                    SKAction.sequence([
+                        SKAction.run(addToken),
+                        SKAction.wait(forDuration: 1.0)
+                        ])
+                ))
+                
         }
     }
     }
-    
+    //**** Random Tokens *****
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }
@@ -65,9 +74,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let token = SKSpriteNode(imageNamed: "Token")
         let actualY = random(min: token.size.height/2, max: size.height - token.size.height/2)
          token.position = CGPoint(x: size.width + token.size.width/2, y: actualY)
-        let randomTokenPosition = GKRandomDistribution(lowestValue: 0, highestValue: 400)
-        let position = CGFloat(randomTokenPosition.nextInt())
-        addChild(token)
+ //       let randomTokenPosition = GKRandomDistribution(lowestValue: 0, highestValue: 400)
+//        let position = CGFloat(randomTokenPosition.nextInt())
+        self.addChild(token)
+        token.zPosition = 1
         
         
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
@@ -83,12 +93,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         moveGrounds()
     }
     
+    
+//    *** Background ***
     func createGrounds() {
         for i in 0...3 {
-        
-        
-        
-        
             let ground = SKSpriteNode(imageNamed: "background1")
             ground.name = "background"
             ground.size = CGSize(width: (self.scene?.size.width)!, height: (self.scene?.size.height)!)
@@ -110,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }))
     }
 
-    
+//    ***** Gesture Recognizer *****
     func createGestureRecognizer() {
 //        let jumpGestureRecognizer = UITapGestureRecognizer(target: self
 //            , action: #selector(tap))
@@ -118,9 +126,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        view?.addGestureRecognizer(jumpGestureRecognizer)
         
         
-        let upSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swiped:"))
-        upSwipeRecognizer.direction = .up
-        self.view?.addGestureRecognizer(upSwipeRecognizer)
+   //     let upSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swiped:"))
+//        upSwipeRecognizer.direction = .up
+//        self.view?.addGestureRecognizer(upSwipeRecognizer)
     }
     
     
