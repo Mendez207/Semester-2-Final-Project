@@ -9,6 +9,8 @@
 import SpriteKit
 import GameplayKit
 
+let tokenCategory: UInt32 = 2
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var player: SKSpriteNode!
@@ -21,16 +23,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     var character = SKSpriteNode()
     
-
     var ground = SKSpriteNode()
     
+    var token = SKSpriteNode()
+    
+        //    token code
+//
+//            token = self.childNode(withName: "token") as! SKSpriteNode
+//            token.physicsBody?.categoryBitMask = tokenCategory
+//        }
+//        func didBegin(_ contact: SKPhysicsContact) {
+//            if contact.bodyA.categoryBitMask == tokenCategory {
+//                changeToken(node: token)
+//            }
+//        }
+//        func changeToken(node:SKSpriteNode){
+//            node.removeAllActions()
+//            node.removeFromParent()
+//        }
     override func didMove(to view: SKView) {
         createGestureRecognizer()
 //        character = self.childNode(withName: "Character") as! SKSpriteNode
         createGrounds()
         
+
         // Score
-        
+     
         scoreLabel = SKLabelNode(text: "Score: 0")
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: -400, y: 240)
@@ -98,8 +116,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 //    *** Background ***
     func createGrounds() {
+        
+        
         for i in 0...3 {
-            let ground = SKSpriteNode(imageNamed: "background1")
+            let ground = SKSpriteNode(imageNamed: "background2")
             ground.name = "background"
             ground.size = CGSize(width: (self.scene?.size.width)!, height: (self.scene?.size.height)!)
             ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
