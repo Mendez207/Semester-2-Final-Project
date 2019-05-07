@@ -25,9 +25,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var ground = SKSpriteNode()
     
     override func didMove(to view: SKView) {
+        createGestureRecognizer()
 //        character = self.childNode(withName: "Character") as! SKSpriteNode
         createGrounds()
-
+        
         // Score
         
         scoreLabel = SKLabelNode(text: "Score: 0")
@@ -35,8 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: -400, y: 240)
         scoreLabel.fontSize = 40
         scoreLabel.fontColor = .black
-     
-       self.addChild(scoreLabel)
+        
+        self.addChild(scoreLabel)
         
         // add/subtract score
         func collisionBetween(character: SKNode, object: SKNode) {
@@ -58,8 +59,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         ])
                 ))
                 
+            }
         }
-    }
     }
     //**** Random Tokens *****
     func random() -> CGFloat {
@@ -121,14 +122,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //    ***** Gesture Recognizer *****
     func createGestureRecognizer() {
         
-        let gestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
-        gestureRecognizer.direction = .up
-        self.view?.addGestureRecognizer(gestureRecognizer)
+        let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture:)))
+        upGestureRecognizer.direction = .up
+        self.view?.addGestureRecognizer(upGestureRecognizer)
     }
     
-    @objc func handleSwipe(gesture: UISwipeGestureRecognizer) {
+    @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
         print("Jump")
+        character.physicsBody?.velocity.dy = 50
     }
+
     
     
     
