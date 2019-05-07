@@ -82,20 +82,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createGestureRecognizer() {
-//        let jumpGestureRecognizer = UITapGestureRecognizer(target: self
-//            , action: #selector(tap))
-//
-//        view?.addGestureRecognizer(jumpGestureRecognizer)
         
-        
-        let upSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swiped:"))
-        upSwipeRecognizer.direction = .up
-        self.view?.addGestureRecognizer(upSwipeRecognizer)
+        let gestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+        gestureRecognizer.direction = .up
+        self.view?.addGestureRecognizer(gestureRecognizer)
     }
     
-    
-//    @objc func swiped (upSwipeRecognizer: UIGestureRecognizer) {
-//        print("Jump")
-//    }
+    @objc func handleSwipe(gesture: UISwipeGestureRecognizer) {
+        print("Jump")
+    }
     
 }
