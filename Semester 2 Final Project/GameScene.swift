@@ -119,7 +119,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         for i in 0...3 {
-            let ground = SKSpriteNode(imageNamed: "background2")
+            let ground = SKSpriteNode(imageNamed: "city")
             ground.name = "background"
             ground.size = CGSize(width: (self.scene?.size.width)!, height: (self.scene?.size.height)!)
             ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
