@@ -47,10 +47,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 score -= 1
                 
                 
-                
+                let playerCenter = CGPoint(x: -376, y: -65)
                 player = SKSpriteNode(imageNamed: "bunny")
-                player.position = CGPoint(x: -376, y: -65)
+                player.position = playerCenter
                 self.addChild(player)
+                player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
                 
                 run(SKAction.repeatForever(
                     SKAction.sequence([
@@ -129,7 +130,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
         print("Jump")
-        character.physicsBody?.velocity.dy = 50
+//        player.physicsBody?.velocity.dy = 50
+        let jump = CGVector(dx: 0, dy: 50)
+        player.physicsBody?.applyForce(jump)
+//        self.physicsBody?.applyForce(jump)
     }
 
     
