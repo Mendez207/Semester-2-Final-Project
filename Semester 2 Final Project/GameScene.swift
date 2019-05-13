@@ -31,23 +31,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var token = SKSpriteNode()
     
         //    token code
-    //
 
-//
-//            token = self.childNode(withName: "token") as! SKSpriteNode
-//            token.physicsBody?.categoryBitMask = tokenCategory
-//        }
-//        func didBegin(_ contact: SKPhysicsContact) {
-//            if contact.bodyA.categoryBitMask == tokenCategory {
-//                changeToken(node: token)
-//            }
-//        }
-//        func changeToken(node:SKSpriteNode){
-//            node.removeAllActions()
-//            node.removeFromParent()
-//        }
+        func didBegin(_ contact: SKPhysicsContact) {
+            if contact.bodyA.categoryBitMask == tokenCategory {
+                changeToken(node: token)
+            }
+        }
+        func changeToken(node:SKSpriteNode){
+            node.removeAllActions()
+            node.removeFromParent()
+        }
     
     override func didMove(to view: SKView) {
+                    token = self.childNode(withName: "token") as! SKSpriteNode
+        character
+                    token.physicsBody?.categoryBitMask = tokenCategory
+        character.physicsBody?.contactTestBitMask = tokenCategory
         createGestureRecognizer()
 //        character = self.childNode(withName: "Character") as! SKSpriteNode
         createGrounds()
