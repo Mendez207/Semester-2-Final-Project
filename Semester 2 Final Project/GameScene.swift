@@ -15,7 +15,7 @@ let characterCategory: UInt32 = 1
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var token = SKSpriteNode(imageNamed: "coin")
-    
+    var counter = 0
     var player: SKSpriteNode!
     
      var scoreLabel: SKLabelNode!
@@ -35,6 +35,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         func didBegin(_ contact: SKPhysicsContact) {
             if contact.bodyA.categoryBitMask == tokenCategory {
                 changeToken(node: token)
+            }
+            if contact.bodyA.categoryBitMask == tokenCategory {
+                counter += 1
+                scoreLabel.text = "\(counter)"
             }
         }
         func changeToken(node:SKSpriteNode){
