@@ -10,11 +10,11 @@ import SpriteKit
 import GameplayKit
 
 let tokenCategory: UInt32 = 2
+let characterCategory: UInt32 = 1
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
-    let token = SKSpriteNode(imageNamed: "coin")
-    
+    var token = SKSpriteNode(imageNamed: "coin")
     
     var player: SKSpriteNode!
     
@@ -28,7 +28,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var ground = SKSpriteNode()
     
-    var token = SKSpriteNode()
+//    var token = SKSpriteNode()
     
         //    token code
 
@@ -44,7 +44,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
                     token = self.childNode(withName: "token") as! SKSpriteNode
-        character
+        character.physicsBody?.categoryBitMask = characterCategory
                     token.physicsBody?.categoryBitMask = tokenCategory
         character.physicsBody?.contactTestBitMask = tokenCategory
         createGestureRecognizer()
@@ -128,15 +128,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-        
-    }
-    
-    
-    
-    
-    
-    
-    
     override func update(_ currentTime: TimeInterval) {
         moveGrounds()
     }
