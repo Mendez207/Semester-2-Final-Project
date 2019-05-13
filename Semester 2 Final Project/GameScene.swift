@@ -28,6 +28,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var token = SKSpriteNode()
     
         //    token code
+    //
+
 //
 //            token = self.childNode(withName: "token") as! SKSpriteNode
 //            token.physicsBody?.categoryBitMask = tokenCategory
@@ -41,6 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            node.removeAllActions()
 //            node.removeFromParent()
 //        }
+    
     override func didMove(to view: SKView) {
         createGestureRecognizer()
 //        character = self.childNode(withName: "Character") as! SKSpriteNode
