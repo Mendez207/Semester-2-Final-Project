@@ -130,19 +130,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
         print("Jump")
-//        player.physicsBody?.velocity.dy = 50
-//        let jump = CGVector(dx: 0, dy: 5)
-//        player.physicsBody?.applyForce(jump)
+        if player.physicsBody?.velocity == CGVector(dx: 0, dy: 0) {
+//            player.physicsBody?.velocity.dy = 50
+//            let jump = CGVector(dx: 0, dy: 5)
+//            player.physicsBody?.applyForce(jump)
+        }
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
