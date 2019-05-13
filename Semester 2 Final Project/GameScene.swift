@@ -9,6 +9,8 @@
 import SpriteKit
 import GameplayKit
 
+let tokenCategory: UInt32 = 2
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
     let token = SKSpriteNode(imageNamed: "coin")
@@ -24,22 +26,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     var character = SKSpriteNode()
     
-
     var ground = SKSpriteNode()
     
+    var token = SKSpriteNode()
+    
+        //    token code
+    //
+
+//
+//            token = self.childNode(withName: "token") as! SKSpriteNode
+//            token.physicsBody?.categoryBitMask = tokenCategory
+//        }
+//        func didBegin(_ contact: SKPhysicsContact) {
+//            if contact.bodyA.categoryBitMask == tokenCategory {
+//                changeToken(node: token)
+//            }
+//        }
+//        func changeToken(node:SKSpriteNode){
+//            node.removeAllActions()
+//            node.removeFromParent()
+//        }
+    
     override func didMove(to view: SKView) {
+        createGestureRecognizer()
 //        character = self.childNode(withName: "Character") as! SKSpriteNode
         createGrounds()
+        
 
         // Score
-        
+     
         scoreLabel = SKLabelNode(text: "Score: 0")
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: -400, y: 240)
         scoreLabel.fontSize = 40
         scoreLabel.fontColor = .black
-     
-       self.addChild(scoreLabel)
+        
+        self.addChild(scoreLabel)
         
         // add/subtract score
         func collisionBetween(character: SKNode, object: SKNode) {
@@ -91,10 +113,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 addToken()
                 
-                
+                let playerCenter = CGPoint(x: -376, y: -65)
                 player = SKSpriteNode(imageNamed: "bunny")
-                player.position = CGPoint(x: -376, y: -65)
+                player.position = playerCenter
                 self.addChild(player)
+                player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
                 
                 run(SKAction.repeatForever(
                     SKAction.sequence([
@@ -103,6 +126,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         ])
                 ))
                 
+            }
         }
     }
         
@@ -121,8 +145,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 //    *** Background ***
     func createGrounds() {
+        
+        
         for i in 0...3 {
-            let ground = SKSpriteNode(imageNamed: "background1")
+            let ground = SKSpriteNode(imageNamed: "city")
             ground.name = "background"
             ground.size = CGSize(width: (self.scene?.size.width)!, height: (self.scene?.size.height)!)
             ground.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -146,22 +172,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //    ***** Gesture Recognizer *****
     func createGestureRecognizer() {
         
-        let gestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
-        gestureRecognizer.direction = .up
-        self.view?.addGestureRecognizer(gestureRecognizer)
+        let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture:)))
+        upGestureRecognizer.direction = .up
+        self.view?.addGestureRecognizer(upGestureRecognizer)
     }
     
-    @objc func handleSwipe(gesture: UISwipeGestureRecognizer) {
+    @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
         print("Jump")
+        if player.physicsBody?.velocity == CGVector(dx: 0, dy: 0) {
+//            player.physicsBody?.velocity.dy = 50
+//            let jump = CGVector(dx: 0, dy: 5)
+//            player.physicsBody?.applyForce(jump)
+        }
     }
+
     
-    
-    
-    
-    
-    
-    
-    
+
     
     
 }
