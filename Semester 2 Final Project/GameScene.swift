@@ -11,6 +11,9 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
+    let token = SKSpriteNode(imageNamed: "coin")
+    
+    
     var player: SKSpriteNode!
     
      var scoreLabel: SKLabelNode!
@@ -45,6 +48,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if object.name == "enemy" {
                 score -= 1
                 
+                //**** Random Tokens *****
+                func random() -> CGFloat {
+                    let randomCGFloat = CGFloat.random(in: 1...1000)
+                    return randomCGFloat
+                    
+                }
+                
+                func random(min: CGFloat, max: CGFloat) -> CGFloat {
+                    return random() * (max - min) + min
+                }
+                
+                func addToken () {
+                    
+                    token.name = "token"
+                    token.position = CGPoint(x: frame.size.width + token.size.width/2, y: frame.size.height * random(min: 0, max: 1))
+                    let actualY = random(min: token.size.height/2, max: size.height - token.size.height/2)
+                    token.position = CGPoint(x: frame.size.width + token.size.width/2, y: actualY)
+                    token.zPosition = 1
+                    
+                    token.run(SKAction.moveBy(x: -size.width - token.size.width, y: 0.0, duration: TimeInterval(random(min: 1, max: 2))))
+                    
+                    let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+                    let actionMove = SKAction.move(to: CGPoint(x: -token.size.width/2, y: actualY),
+                                                   duration: TimeInterval(actualDuration))
+                    let actionMoveDone = SKAction.removeFromParent()
+                    token.run(SKAction.sequence([actionMove, actionMoveDone]))
+                    
+                    run(SKAction.repeatForever(
+                        SKAction.sequence([
+                            SKAction.run(addToken),
+                            SKAction.wait(forDuration: 1.0)
+                            ])
+                    ))
+                    
+                    let coinTexture = SKTexture(imageNamed: "coin")
+                    let action = SKAction.setTexture(coinTexture, resize: true)
+                    token.texture = coinTexture
+                    token.run(action)
+                    
+                    self.addChild(token)
+                }
+                addToken()
                 
                 
                 player = SKSpriteNode(imageNamed: "bunny")
@@ -60,32 +105,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
         }
     }
-    }
-    //**** Random Tokens *****
-    func random() -> CGFloat {
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+        
     }
     
-    func random(min: CGFloat, max: CGFloat) -> CGFloat {
-        return random() * (max - min) + min
-    }
     
-    func addToken () {
-        let token = SKSpriteNode(imageNamed: "Token")
-        let actualY = random(min: token.size.height/2, max: size.height - token.size.height/2)
-         token.position = CGPoint(x: size.width + token.size.width/2, y: actualY)
- //       let randomTokenPosition = GKRandomDistribution(lowestValue: 0, highestValue: 400)
-//        let position = CGFloat(randomTokenPosition.nextInt())
-        self.addChild(token)
-        token.zPosition = 1
-        
-        
-        let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
-                let actionMove = SKAction.move(to: CGPoint(x: -token.size.width/2, y: actualY),
-        duration: TimeInterval(actualDuration))
-        let actionMoveDone = SKAction.removeFromParent()
-        token.run(SKAction.sequence([actionMove, actionMoveDone]))
-    }
+    
+    
     
     
     
