@@ -10,12 +10,12 @@ import SpriteKit
 import GameplayKit
 
 let tokenCategory: UInt32 = 2
+let characterCategory: UInt32 = 1
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
-    let token = SKSpriteNode(imageNamed: "coin")
-    
-    
+
+    var token = SKSpriteNode(imageNamed: "coin")
+    var counter = 0
     var player: SKSpriteNode!
     
     var scoreLabel: SKLabelNode!
@@ -28,26 +28,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var ground = SKSpriteNode()
     
-    //   var token = SKSpriteNode()
+//    var token = SKSpriteNode()
     
-    //    token code
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.categoryBitMask == tokenCategory {
-            changeToken(node: token)
+        //    token code
+
+        func didBegin(_ contact: SKPhysicsContact) {
+            if contact.bodyA.categoryBitMask == tokenCategory {
+                changeToken(node: token)
+            }
+            if contact.bodyA.categoryBitMask == tokenCategory {
+                counter += 1
+                scoreLabel.text = "\(counter)"
+            }
         }
-    }
-    func changeToken(node:SKSpriteNode){
-        node.removeAllActions()
-        node.removeFromParent()
-    }
+        func changeToken(node:SKSpriteNode){
+            node.removeAllActions()
+            node.removeFromParent()
+        }
     
     override func didMove(to view: SKView) {
-        physicsWorld.contactDelegate = self
-        
-        //                    token = self.childNode(withName: "token") as! SKSpriteNode
-        //        character
-        token.physicsBody?.categoryBitMask = tokenCategory
+                    token = self.childNode(withName: "token") as! SKSpriteNode
+        character.physicsBody?.categoryBitMask = characterCategory
+                    token.physicsBody?.categoryBitMask = tokenCategory
         character.physicsBody?.contactTestBitMask = tokenCategory
         createGestureRecognizer()
         //        character = self.childNode(withName: "Character") as! SKSpriteNode
