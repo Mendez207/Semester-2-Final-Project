@@ -187,7 +187,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Jump")
         print(character)
         let jump = CGVector(dx: 0, dy: 1000)
-        character.physicsBody?.velocity = jump
+        if character.physicsBody?.velocity.dy == 0 {
+            character.physicsBody?.velocity = jump
+        }
         print(character.physicsBody?.velocity)
     }
     
