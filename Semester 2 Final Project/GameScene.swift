@@ -52,7 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     token.physicsBody?.categoryBitMask = tokenCategory
         character.physicsBody?.contactTestBitMask = tokenCategory
         createGestureRecognizer()
-        //        character = self.childNode(withName: "Character") as! SKSpriteNode
+        character = self.childNode(withName: "character") as! SKSpriteNode
         createGrounds()
         
         
@@ -73,35 +73,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             token.position = CGPoint(x: frame.size.width + token.size.width/2, y: frame.size.height * random(min: 0, max: 1))
             let actualY = random(min: token.size.height/2, max: size.height - token.size.height/2)
             token.position = CGPoint(x: frame.size.width + token.size.width/2, y: actualY)
-            token.zPosition = 1
-            
-            token.run(SKAction.moveBy(x: -size.width - token.size.width, y: 0.0, duration: TimeInterval(random(min: 1, max: 2))))
-            
-            let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
-            let actionMove = SKAction.move(to: CGPoint(x: -token.size.width/2, y: actualY),
-                                           duration: TimeInterval(actualDuration))
-            let actionMoveDone = SKAction.removeFromParent()
-            token.run(SKAction.sequence([actionMove, actionMoveDone]))
-            
-            run(SKAction.repeatForever(
-                SKAction.sequence([
-                    SKAction.run(addToken),
-                    SKAction.wait(forDuration: 1.0)
-                    ])
-            ))
-            
-            let coinTexture = SKTexture(imageNamed: "coin")
-            let action = SKAction.setTexture(coinTexture, resize: true)
-            token.texture = coinTexture
-            token.run(action)
-            
-            self.addChild(token)
-            
-            let playerCenter = CGPoint(x: -376, y: -65)
-            player = SKSpriteNode(imageNamed: "bunny")
-            player.position = playerCenter
-            self.addChild(player)
-            player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
+//            token.zPosition = 1
+//
+//            token.run(SKAction.moveBy(x: -size.width - token.size.width, y: 0.0, duration: TimeInterval(random(min: 1, max: 2))))
+//
+//            let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+//            let actionMove = SKAction.move(to: CGPoint(x: -token.size.width/2, y: actualY),
+//                                           duration: TimeInterval(actualDuration))
+//            let actionMoveDone = SKAction.removeFromParent()
+//            token.run(SKAction.sequence([actionMove, actionMoveDone]))
+//
+//            run(SKAction.repeatForever(
+//                SKAction.sequence([
+//                    SKAction.run(addToken),
+//                    SKAction.wait(forDuration: 1.0)
+//                    ])
+//            ))
+//
+//            let coinTexture = SKTexture(imageNamed: "coin")
+//            let action = SKAction.setTexture(coinTexture, resize: true)
+//            token.texture = coinTexture
+//            token.run(action)
+//
+//            self.addChild(token)
+//
+//            let playerCenter = CGPoint(x: -376, y: -65)
+//            player = SKSpriteNode(imageNamed: "bunny")
+//            player.position = playerCenter
+//            self.addChild(player)
+//            player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
         }
         
         
@@ -175,6 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     //    ***** Gesture Recognizer *****
+    
     func createGestureRecognizer() {
         
         let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture:)))
@@ -184,11 +185,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
         print("Jump")
-        if player.physicsBody?.velocity == CGVector(dx: 0, dy: 0) {
-            //            player.physicsBody?.velocity.dy = 50
-            //            let jump = CGVector(dx: 0, dy: 5)
-            //            player.physicsBody?.applyForce(jump)
-        }
+        print(character)
+        let jump = CGVector(dx: 0, dy: 1000)
+        character.physicsBody?.velocity = jump
+        print(character.physicsBody?.velocity)
     }
     
     
