@@ -32,27 +32,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
         //    token code
 
-        func didBegin(_ contact: SKPhysicsContact) {
-            if contact.bodyA.categoryBitMask == tokenCategory {
-                changeToken(node: token)
-            }
-            if contact.bodyA.categoryBitMask == tokenCategory {
-                counter += 1
-                scoreLabel.text = "\(counter)"
-            }
-        }
-        func changeToken(node:SKSpriteNode){
-            node.removeAllActions()
-            node.removeFromParent()
-        }
+//        func didBegin(_ contact: SKPhysicsContact) {
+//            if contact.bodyA.categoryBitMask == tokenCategory {
+//                changeToken(node: token)
+//            }
+//            if contact.bodyA.categoryBitMask == tokenCategory {
+//                counter += 1
+//                scoreLabel.text = "\(counter)"
+//            }
+//        }
+//        func changeToken(node:SKSpriteNode){
+//            node.removeAllActions()
+//            node.removeFromParent()
+//        }
     
     override func didMove(to view: SKView) {
-                    token = self.childNode(withName: "token") as! SKSpriteNode
-        character.physicsBody?.categoryBitMask = characterCategory
-                    token.physicsBody?.categoryBitMask = tokenCategory
-        character.physicsBody?.contactTestBitMask = tokenCategory
-        createGestureRecognizer()
-        character = self.childNode(withName: "character") as! SKSpriteNode
+        
+//                    token = self.childNode(withName: "token") as! SKSpriteNode
+//        character.physicsBody?.categoryBitMask = characterCategory
+//                    token.physicsBody?.categoryBitMask = tokenCategory
+//        character.physicsBody?.contactTestBitMask = tokenCategory
+//        createGestureRecognizer()
+//        character = self.childNode(withName: "character") as! SKSpriteNode
         createGrounds()
         
         
