@@ -118,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // add/subtract score
         func collisionBetween(character: SKNode, object: SKNode) {
-            if object.name == "token" {
+            if object.name == "coin" {
                 score += 1
             } else if object.name == "enemy" {
                 score -= 1
