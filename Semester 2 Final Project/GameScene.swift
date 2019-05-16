@@ -28,28 +28,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var ground = SKSpriteNode()
     
-<<<<<<< refs/remotes/origin/master
+    //code for token to disappear
+    func didBegin(_ contact: SKPhysicsContact){
+        let bodyAName = contact.bodyA.node?.name
+        let bodyBName = contact.bodyB.node?.name
+
+        if bodyAName == "character" && bodyBName == "coin" || bodyAName == "coin" && bodyBName == "character"{
+            if bodyAName == "coin"{
+                contact.bodyA.node?.removeFromParent()
+            } else if bodyBName == "coin"{
+                contact.bodyB.node?.removeFromParent()
+            }
+        }
+
+    }
     var availableTokens = ["coin", "token1", "token2"]
     
 //    var token = SKSpriteNode()
     
         //    token contact code
 
-        func didBegin(_ contact: SKPhysicsContact) {
-            if contact.bodyA.categoryBitMask == tokenCategory {
-                changeToken(node: token)
-            }
-            if contact.bodyA.categoryBitMask == tokenCategory {
-                counter += 1
-                scoreLabel.text = "\(counter)"
-            }
-        }
+//        func didBegin(_ contact: SKPhysicsContact) {
+//            if contact.bodyA.categoryBitMask == tokenCategory {
+//                changeToken(node: token)
+//            }
+//            if contact.bodyA.categoryBitMask == tokenCategory {
+//                counter += 1
+//                scoreLabel.text = "\(counter)"
+//            }
+//        }
         func changeToken(node:SKSpriteNode){
             node.removeAllActions()
             node.removeFromParent()
         }
-=======
->>>>>>> token code
     
         //    coin code
     override func didMove(to view: SKView) {
@@ -64,49 +75,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
         
         
-<<<<<<< refs/remotes/origin/master
+
         //**** Random Tokens *****
-=======
-        func didBegin(_ contact: SKPhysicsContact){
-            let bodyAName = contact.bodyA.node?.name
-            let bodyBName = contact.bodyB.node?.name
 
-            if bodyAName == "character" && bodyBName == "coin" || bodyAName == "coin" && bodyBName == "character"{
-                if bodyAName == "coin"{
-                    contact.bodyA.node?.removeFromParent()
-            } else if bodyBName == "coin"{
-                contact.bodyB.node?.removeFromParent()
-            }
-        }
 
-    }
->>>>>>> token code
 
-        func addToken () {
-            availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
-            let token = SKSpriteNode(imageNamed: availableTokens[0])
-            
-            let randomTokenSpawn = GKRandomDistribution(lowestValue: -200, highestValue: 200)
-            let position = CGFloat(randomTokenSpawn.nextInt())
-            
-            token.position = CGPoint(x: frame.size.width + token.size.width/2, y: position)
+//        func addToken () {
+//            availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
+//            let token = SKSpriteNode(imageNamed: availableTokens[0])
+//
+//            let randomTokenSpawn = GKRandomDistribution(lowestValue: -200, highestValue: 200)
+//            let position = CGFloat(randomTokenSpawn.nextInt())
+//
+//            token.position = CGPoint(x: frame.size.width + token.size.width/2, y: position)
             //            token.physicsBody = SKPhysicsBody(rectangleOf: token.size)
             //            token.physicsBody?.isDynamic = true
             //            token.physicsBody?.collisionBitMask = 0
             //
             
             
-            self.addChild(token)
-            
-            let duration:TimeInterval = 6
-            var actionArray = [SKAction]()
-            
-            actionArray.append(SKAction.run(addToken))
-            actionArray.append(SKAction.move(to: CGPoint(x: -token.size.width, y: position), duration: duration))
-            actionArray.append(SKAction.removeFromParent())
-            token.run(SKAction.sequence(actionArray))
-            self.addChild(token)
-        }
+//            self.addChild(token)
+//
+//            let duration:TimeInterval = 6
+//            var actionArray = [SKAction]()
+//
+//            actionArray.append(SKAction.run(addToken))
+//            actionArray.append(SKAction.move(to: CGPoint(x: -token.size.width, y: position), duration: duration))
+//            actionArray.append(SKAction.removeFromParent())
+//            token.run(SKAction.sequence(actionArray))
+//            self.addChild(token)
+//        }
         
         // Score
         
@@ -128,8 +126,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
                 }
                 
-                addToken()
-                
+//                addToken()
+        
 //                let playerCenter = CGPoint(x: -376, y: -65)
 //                player = SKSpriteNode(imageNamed: "bunny")
 //                player.position = playerCenter
