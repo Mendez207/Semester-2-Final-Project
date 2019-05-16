@@ -49,12 +49,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     
     override func didMove(to view: SKView) {
-                    token = self.childNode(withName: "token") as! SKSpriteNode
-        character.physicsBody?.categoryBitMask = characterCategory
-                    token.physicsBody?.categoryBitMask = tokenCategory
-        character.physicsBody?.contactTestBitMask = tokenCategory
-        createGestureRecognizer()
-        //        character = self.childNode(withName: "Character") as! SKSpriteNode
+        
+//                    token = self.childNode(withName: "token") as! SKSpriteNode
+//        character.physicsBody?.categoryBitMask = characterCategory
+//                    token.physicsBody?.categoryBitMask = tokenCategory
+//        character.physicsBody?.contactTestBitMask = tokenCategory
+//        createGestureRecognizer()
+//        character = self.childNode(withName: "character") as! SKSpriteNode
         createGrounds()
         
         let playerCenter = CGPoint(x: -376, y: -65)
@@ -161,6 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     //    ***** Gesture Recognizer *****
+    
     func createGestureRecognizer() {
         
         let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture:)))
@@ -170,11 +172,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
         print("Jump")
-        if player.physicsBody?.velocity == CGVector(dx: 0, dy: 0) {
-            //            player.physicsBody?.velocity.dy = 50
-            //            let jump = CGVector(dx: 0, dy: 5)
-            //            player.physicsBody?.applyForce(jump)
+        print(character)
+        let jump = CGVector(dx: 0, dy: 1000)
+        if character.physicsBody?.velocity.dy == 0 {
+            character.physicsBody?.velocity = jump
         }
+        print(character.physicsBody?.velocity)
     }
     
     
