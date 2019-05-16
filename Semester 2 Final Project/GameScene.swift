@@ -28,6 +28,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var ground = SKSpriteNode()
     
+<<<<<<< refs/remotes/origin/master
     var availableTokens = ["coin", "token1", "token2"]
     
 //    var token = SKSpriteNode()
@@ -47,15 +48,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             node.removeAllActions()
             node.removeFromParent()
         }
+=======
+>>>>>>> token code
     
+        //    coin code
     override func didMove(to view: SKView) {
-        
-//                    token = self.childNode(withName: "token") as! SKSpriteNode
-//        character.physicsBody?.categoryBitMask = characterCategory
-//                    token.physicsBody?.categoryBitMask = tokenCategory
-//        character.physicsBody?.contactTestBitMask = tokenCategory
-//        createGestureRecognizer()
-//        character = self.childNode(withName: "character") as! SKSpriteNode
+        character = self.childNode(withName: "character") as! SKSpriteNode
+        self.physicsWorld.contactDelegate = self
         createGrounds()
         
         let playerCenter = CGPoint(x: -376, y: -65)
@@ -65,7 +64,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
         
         
+<<<<<<< refs/remotes/origin/master
         //**** Random Tokens *****
+=======
+        func didBegin(_ contact: SKPhysicsContact){
+            let bodyAName = contact.bodyA.node?.name
+            let bodyBName = contact.bodyB.node?.name
+
+            if bodyAName == "character" && bodyBName == "coin" || bodyAName == "coin" && bodyBName == "character"{
+                if bodyAName == "coin"{
+                    contact.bodyA.node?.removeFromParent()
+            } else if bodyBName == "coin"{
+                contact.bodyB.node?.removeFromParent()
+            }
+        }
+
+    }
+>>>>>>> token code
 
         func addToken () {
             availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
