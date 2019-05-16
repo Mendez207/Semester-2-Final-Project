@@ -28,9 +28,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var ground = SKSpriteNode()
     
+    var availableTokens = ["coin", "token1", "token2"]
+    
 //    var token = SKSpriteNode()
     
-        //    token code
+        //    token contact code
 
         func didBegin(_ contact: SKPhysicsContact) {
             if contact.bodyA.categoryBitMask == tokenCategory {
@@ -55,56 +57,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //        character = self.childNode(withName: "Character") as! SKSpriteNode
         createGrounds()
         
+        let playerCenter = CGPoint(x: -376, y: -65)
+        player = SKSpriteNode(imageNamed: "bunny")
+        player.position = playerCenter
+        self.addChild(player)
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
+        
         
         //**** Random Tokens *****
-        func random() -> CGFloat {
-            let randomCGFloat = CGFloat.random(in: 1...1000)
-            return randomCGFloat
-            
-        }
-        
-        func random(min: CGFloat, max: CGFloat) -> CGFloat {
-            return random() * (max - min) + min
-        }
-        
+
         func addToken () {
+            availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
+            let token = SKSpriteNode(imageNamed: availableTokens[0])
             
-            token.name = "token"
-            token.position = CGPoint(x: frame.size.width + token.size.width/2, y: frame.size.height * random(min: 0, max: 1))
-            let actualY = random(min: token.size.height/2, max: size.height - token.size.height/2)
-            token.position = CGPoint(x: frame.size.width + token.size.width/2, y: actualY)
-            token.zPosition = 1
+            let randomTokenSpawn = GKRandomDistribution(lowestValue: -200, highestValue: 200)
+            let position = CGFloat(randomTokenSpawn.nextInt())
             
-            token.run(SKAction.moveBy(x: -size.width - token.size.width, y: 0.0, duration: TimeInterval(random(min: 1, max: 2))))
+            token.position = CGPoint(x: frame.size.width + token.size.width/2, y: position)
+            //            token.physicsBody = SKPhysicsBody(rectangleOf: token.size)
+            //            token.physicsBody?.isDynamic = true
+            //            token.physicsBody?.collisionBitMask = 0
+            //
             
-            let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
-            let actionMove = SKAction.move(to: CGPoint(x: -token.size.width/2, y: actualY),
-                                           duration: TimeInterval(actualDuration))
-            let actionMoveDone = SKAction.removeFromParent()
-            token.run(SKAction.sequence([actionMove, actionMoveDone]))
-            
-            run(SKAction.repeatForever(
-                SKAction.sequence([
-                    SKAction.run(addToken),
-                    SKAction.wait(forDuration: 1.0)
-                    ])
-            ))
-            
-            let coinTexture = SKTexture(imageNamed: "coin")
-            let action = SKAction.setTexture(coinTexture, resize: true)
-            token.texture = coinTexture
-            token.run(action)
             
             self.addChild(token)
             
-            let playerCenter = CGPoint(x: -376, y: -65)
-            player = SKSpriteNode(imageNamed: "bunny")
-            player.position = playerCenter
-            self.addChild(player)
-            player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
+            let duration:TimeInterval = 6
+            var actionArray = [SKAction]()
+            
+            actionArray.append(SKAction.run(addToken))
+            actionArray.append(SKAction.move(to: CGPoint(x: -token.size.width, y: position), duration: duration))
+            actionArray.append(SKAction.removeFromParent())
+            token.run(SKAction.sequence(actionArray))
+            self.addChild(token)
         }
-        
-        
         
         // Score
         
