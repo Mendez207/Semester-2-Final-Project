@@ -22,6 +22,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var score: Int = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
+            scoreLabel.fontName = "Verdana-Bold"
+            scoreLabel.position = CGPoint(x: -500, y: 240)
         }
     }
     var character = SKSpriteNode()
@@ -49,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //    var token = SKSpriteNode()
     
     
-        //    coin code
+        //    character code
     override func didMove(to view: SKView) {
         character = self.childNode(withName: "character") as! SKSpriteNode
         self.physicsWorld.contactDelegate = self
@@ -97,9 +99,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         scoreLabel = SKLabelNode(text: "Score: 0")
         scoreLabel.horizontalAlignmentMode = .left
-        scoreLabel.position = CGPoint(x: -400, y: 240)
+        scoreLabel.fontName = "Verdana-Bold"
+        scoreLabel.position = CGPoint(x: -500, y: 240)
         scoreLabel.fontSize = 40
-        scoreLabel.fontColor = .black
+        scoreLabel.fontColor = .blue
         
         self.addChild(scoreLabel)
         
