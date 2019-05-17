@@ -22,13 +22,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var score: Int = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
+            scoreLabel.fontName = "Verdana-Bold"
+            scoreLabel.position = CGPoint(x: -500, y: 240)
         }
     }
     var character = SKSpriteNode()
     
     var ground = SKSpriteNode()
     
-    //code for token to disappear
+    //code for token to disappear and make score go up
     func didBegin(_ contact: SKPhysicsContact){
         let bodyAName = contact.bodyA.node?.name
         let bodyBName = contact.bodyB.node?.name
@@ -36,8 +38,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if bodyAName == "character" && bodyBName == "coin" || bodyAName == "coin" && bodyBName == "character"{
             if bodyAName == "coin"{
                 contact.bodyA.node?.removeFromParent()
+                score += 1
             } else if bodyBName == "coin"{
                 contact.bodyB.node?.removeFromParent()
+                score += 1
             }
         }
 
@@ -46,23 +50,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 //    var token = SKSpriteNode()
     
-        //    token contact code
-
-//        func didBegin(_ contact: SKPhysicsContact) {
-//            if contact.bodyA.categoryBitMask == tokenCategory {
-//                changeToken(node: token)
-//            }
-//            if contact.bodyA.categoryBitMask == tokenCategory {
-//                counter += 1
-//                scoreLabel.text = "\(counter)"
-//            }
-//        }
-        func changeToken(node:SKSpriteNode){
-            node.removeAllActions()
-            node.removeFromParent()
-        }
     
-        //    coin code
+        //    character code
     override func didMove(to view: SKView) {
         character = self.childNode(withName: "character") as! SKSpriteNode
         self.physicsWorld.contactDelegate = self
@@ -79,9 +68,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         scoreLabel = SKLabelNode(text: "Score: 0")
         scoreLabel.horizontalAlignmentMode = .left
-        scoreLabel.position = CGPoint(x: -400, y: 240)
+        scoreLabel.fontName = "Verdana-Bold"
+        scoreLabel.position = CGPoint(x: -500, y: 240)
         scoreLabel.fontSize = 40
-        scoreLabel.fontColor = .black
+        scoreLabel.fontColor = .blue
         
         self.addChild(scoreLabel)
         
