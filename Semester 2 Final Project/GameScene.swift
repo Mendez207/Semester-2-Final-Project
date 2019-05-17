@@ -28,7 +28,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var ground = SKSpriteNode()
     
-    //code for token to disappear
+    //code for token to disappear and make score go up
     func didBegin(_ contact: SKPhysicsContact){
         let bodyAName = contact.bodyA.node?.name
         let bodyBName = contact.bodyB.node?.name
@@ -36,8 +36,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if bodyAName == "character" && bodyBName == "coin" || bodyAName == "coin" && bodyBName == "character"{
             if bodyAName == "coin"{
                 contact.bodyA.node?.removeFromParent()
+                score += 1
             } else if bodyBName == "coin"{
                 contact.bodyB.node?.removeFromParent()
+                score += 1
             }
         }
 
@@ -46,21 +48,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 //    var token = SKSpriteNode()
     
-        //    token contact code
-
-//        func didBegin(_ contact: SKPhysicsContact) {
-//            if contact.bodyA.categoryBitMask == tokenCategory {
-//                changeToken(node: token)
-//            }
-//            if contact.bodyA.categoryBitMask == tokenCategory {
-//                counter += 1
-//                scoreLabel.text = "\(counter)"
-//            }
-//        }
-        func changeToken(node:SKSpriteNode){
-            node.removeAllActions()
-            node.removeFromParent()
-        }
     
         //    coin code
     override func didMove(to view: SKView) {
