@@ -66,7 +66,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         character = self.childNode(withName: "character") as! SKSpriteNode
         self.physicsWorld.contactDelegate = self
-        createGrounds()
+   //     createGrounds()
         
         let playerCenter = CGPoint(x: -376, y: -65)
         player = SKSpriteNode(imageNamed: "bunny")
@@ -74,38 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(player)
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
         
-        
-
-        //**** Random Tokens *****
-
-
-
-//        func addToken () {
-//            availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
-//            let token = SKSpriteNode(imageNamed: availableTokens[0])
-//
-//            let randomTokenSpawn = GKRandomDistribution(lowestValue: -200, highestValue: 200)
-//            let position = CGFloat(randomTokenSpawn.nextInt())
-//
-//            token.position = CGPoint(x: frame.size.width + token.size.width/2, y: position)
-            //            token.physicsBody = SKPhysicsBody(rectangleOf: token.size)
-            //            token.physicsBody?.isDynamic = true
-            //            token.physicsBody?.collisionBitMask = 0
-            //
-            
-            
-//            self.addChild(token)
-//
-//            let duration:TimeInterval = 6
-//            var actionArray = [SKAction]()
-//
-//            actionArray.append(SKAction.run(addToken))
-//            actionArray.append(SKAction.move(to: CGPoint(x: -token.size.width, y: position), duration: duration))
-//            actionArray.append(SKAction.removeFromParent())
-//            token.run(SKAction.sequence(actionArray))
-//            self.addChild(token)
-//        }
-        
+    
         // Score
         
         scoreLabel = SKLabelNode(text: "Score: 0")
@@ -123,10 +92,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if object.name == "enemy" {
                 score -= 1
             }
-            
-                }
+ 
+            func addToken () {
+                availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
+                let token = SKSpriteNode(imageNamed: availableTokens[0])
                 
-//                addToken()
+                let randomTokenSpawn = GKRandomDistribution(lowestValue: 0, highestValue: 200)
+                let position = CGFloat(randomTokenSpawn.nextInt())
+                
+                token.position = CGPoint(x: frame.size.width + token.size.width/2, y: position)
+                //            token.physicsBody = SKPhysicsBody(rectangleOf: token.size)
+                //            token.physicsBody?.isDynamic = true
+                //            token.physicsBody?.collisionBitMask = 0
+                self.addChild(token)
+                
+                let moveDuration:TimeInterval = 6
+                var actionArray = [SKAction]()
+                
+                actionArray.append(SKAction.wait(forDuration: 3))
+                actionArray.append(SKAction.run(addToken))
+                actionArray.append(SKAction.move(to: CGPoint(x: -550.00, y: position), duration: moveDuration))
+                actionArray.append(SKAction.wait(forDuration: 5))
+                actionArray.append(SKAction.removeFromParent())
+                token.run(SKAction.sequence(actionArray))
+
+                }
+        
+                collisionBetween(character: character, object: token)
+//
+        addToken()
         
 //                let playerCenter = CGPoint(x: -376, y: -65)
 //                player = SKSpriteNode(imageNamed: "bunny")
