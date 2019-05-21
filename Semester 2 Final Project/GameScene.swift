@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 let tokenCategory: UInt32 = 2
 let characterCategory: UInt32 = 1
@@ -17,7 +18,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var token = SKSpriteNode(imageNamed: "coin")
     var counter = 0
     var player: SKSpriteNode!
-    
     var scoreLabel: SKLabelNode!
     var score: Int = 0 {
         didSet {
@@ -27,8 +27,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     var character = SKSpriteNode()
-    
     var ground = SKSpriteNode()
+    var audioPlayer: AVAudioPlayer!
     
     //code for token to disappear and make score go up
     func didBegin(_ contact: SKPhysicsContact){
@@ -37,9 +37,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         if bodyAName == "character" && bodyBName == "coin" || bodyAName == "coin" && bodyBName == "character"{
             if bodyAName == "coin"{
+                audioPlayer.play()
                 contact.bodyA.node?.removeFromParent()
                 score += 1
             } else if bodyBName == "coin"{
+                audioPlayer.play()
                 contact.bodyB.node?.removeFromParent()
                 score += 1
             }
@@ -63,8 +65,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(player)
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
         
+        let urlPath = Bundle.main.url(forResource: "coinSoundEffect", withExtension: "wav")
         
-
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: urlPath!)
+            audioPlayer.prepareToPlay()
+        } catch {
+            print("Error!")
+        }
         //**** Random Tokens *****
 
 
