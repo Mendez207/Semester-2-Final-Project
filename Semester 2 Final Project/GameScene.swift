@@ -64,6 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
         //    coin code
     override func didMove(to view: SKView) {
+        createGestureRecognizer()
         character = self.childNode(withName: "character") as! SKSpriteNode
         self.physicsWorld.contactDelegate = self
         createGrounds()
@@ -185,12 +186,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
         print("Jump")
-        print(character)
+//        print(character)
         let jump = CGVector(dx: 0, dy: 1000)
         if character.physicsBody?.velocity.dy == 0 {
             character.physicsBody?.velocity = jump
+            print("Not Moving")
+        } else {
+            print("Moving")
         }
-        print(character.physicsBody?.velocity)
+//        print(character.physicsBody?.velocity)
     }
     
     
