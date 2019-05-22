@@ -14,6 +14,7 @@
 		736D48272278A97700DAAD24 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D48262278A97700DAAD24 /* GameViewController.swift */; };
 		736D482A2278A97700DAAD24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 736D48282278A97700DAAD24 /* Main.storyboard */; };
 		736D482C2278A97900DAAD24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 736D482B2278A97900DAAD24 /* Assets.xcassets */; };
+		A206A62722945BA50021E4CB /* coinSoundEffect.wav in Resources */ = {isa = PBXBuildFile; fileRef = A206A62622945BA50021E4CB /* coinSoundEffect.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		736D48292278A97700DAAD24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		736D482B2278A97900DAAD24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		736D482D2278A97900DAAD24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A206A62622945BA50021E4CB /* coinSoundEffect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coinSoundEffect.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				736D48222278A97700DAAD24 /* Actions.sks */,
 				736D48242278A97700DAAD24 /* GameScene.swift */,
 				736D48262278A97700DAAD24 /* GameViewController.swift */,
+				A206A62622945BA50021E4CB /* coinSoundEffect.wav */,
 				736D48282278A97700DAAD24 /* Main.storyboard */,
 				736D482B2278A97900DAAD24 /* Assets.xcassets */,
 				736D482D2278A97900DAAD24 /* Info.plist */,
@@ -131,6 +134,7 @@
 				736D482A2278A97700DAAD24 /* Main.storyboard in Resources */,
 				736D48212278A97700DAAD24 /* GameScene.sks in Resources */,
 				736D482C2278A97900DAAD24 /* Assets.xcassets in Resources */,
+				A206A62722945BA50021E4CB /* coinSoundEffect.wav in Resources */,
 				736D48232278A97700DAAD24 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
