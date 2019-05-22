@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 let tokenCategory: UInt32 = 2
 let characterCategory: UInt32 = 1
@@ -17,7 +18,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var token = SKSpriteNode(imageNamed: "coin")
     var counter = 0
     var player: SKSpriteNode!
-    
     var scoreLabel: SKLabelNode!
     var score: Int = 0 {
         didSet {
@@ -27,8 +27,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     var character = SKSpriteNode()
-    
     var ground = SKSpriteNode()
+    var audioPlayer: AVAudioPlayer!
     
     //code for token to disappear and make score go up
     func didBegin(_ contact: SKPhysicsContact){
@@ -37,9 +37,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         if bodyAName == "character" && bodyBName == "coin" || bodyAName == "coin" && bodyBName == "character"{
             if bodyAName == "coin"{
+                audioPlayer.play()
                 contact.bodyA.node?.removeFromParent()
                 score += 1
             } else if bodyBName == "coin"{
+                audioPlayer.play()
                 contact.bodyB.node?.removeFromParent()
                 score += 1
             }
@@ -56,7 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createGestureRecognizer()
         character = self.childNode(withName: "character") as! SKSpriteNode
         self.physicsWorld.contactDelegate = self
-        createGrounds()
+   //     createGrounds()
         
         let playerCenter = CGPoint(x: -376, y: -65)
         player = SKSpriteNode(imageNamed: "bunny")
@@ -64,8 +66,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(player)
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
         
+        let urlPath = Bundle.main.url(forResource: "coinSoundEffect", withExtension: "wav")
         
-
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: urlPath!)
+            audioPlayer.prepareToPlay()
+        } catch {
+            print("Error!")
+        }
         //**** Random Tokens *****
 
 
@@ -96,6 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            self.addChild(token)
 //        }
         
+    
         // Score
         
         scoreLabel = SKLabelNode(text: "Score: 0")
@@ -114,10 +123,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if object.name == "enemy" {
                 score -= 1
             }
-            
-        }
+ 
+            func addToken () {
+                availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
+                let token = SKSpriteNode(imageNamed: availableTokens[0])
                 
-//                addToken()
+                let randomTokenSpawn = GKRandomDistribution(lowestValue: 0, highestValue: 200)
+                let position = CGFloat(randomTokenSpawn.nextInt())
+                
+                token.position = CGPoint(x: frame.size.width + token.size.width/2, y: position)
+                //            token.physicsBody = SKPhysicsBody(rectangleOf: token.size)
+                //            token.physicsBody?.isDynamic = true
+                //            token.physicsBody?.collisionBitMask = 0
+                self.addChild(token)
+                
+                let moveDuration:TimeInterval = 6
+                var actionArray = [SKAction]()
+                
+                actionArray.append(SKAction.wait(forDuration: 3))
+                actionArray.append(SKAction.run(addToken))
+                actionArray.append(SKAction.move(to: CGPoint(x: -550.00, y: position), duration: moveDuration))
+                actionArray.append(SKAction.wait(forDuration: 5))
+                actionArray.append(SKAction.removeFromParent())
+                token.run(SKAction.sequence(actionArray))
+
+                }
+        
+                collisionBetween(character: character, object: token)
+//
+        addToken()
         
 //                let playerCenter = CGPoint(x: -376, y: -65)
 //                player = SKSpriteNode(imageNamed: "bunny")
@@ -195,3 +229,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
 }
+
