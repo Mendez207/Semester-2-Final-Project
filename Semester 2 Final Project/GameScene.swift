@@ -100,7 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         actionArray.append(SKAction.wait(forDuration: 5))
         actionArray.append(SKAction.removeFromParent())
         token.run(SKAction.sequence(actionArray))
-//        }
+        }
         
     
         // Score
@@ -196,12 +196,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }))
     }
-    
+    }
     //    ***** Gesture Recognizer *****
     
     func createGestureRecognizer() {
         
-        let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture:)))
+        let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture: )))
         upGestureRecognizer.direction = .up
         self.view?.addGestureRecognizer(upGestureRecognizer)
         
@@ -226,6 +226,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-}
+
 
 }
+
