@@ -57,7 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         character = self.childNode(withName: "character") as! SKSpriteNode
         self.physicsWorld.contactDelegate = self
        
-        //     createGrounds()
+           createGrounds()
         let playerCenter = CGPoint(x: -376, y: -65)
         player = SKSpriteNode(imageNamed: "bunny")
         player.position = playerCenter
@@ -77,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        func addToken () {
 //            availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
 //            let token = SKSpriteNode(imageNamed: availableTokens[0])
+//            let token.name = "coin"
 //
 //            let randomTokenSpawn = GKRandomDistribution(lowestValue: 0, highestValue: 200)
 //            let position = CGFloat(randomTokenSpawn.nextInt())
@@ -152,7 +153,7 @@ func createGestureRecognizer() {
     print("Jump")
     //        print(character)
     let jump = CGVector(dx: 0, dy: 1000)
-    //        character.physicsBody?.velocity = jump
+          character.physicsBody?.velocity = jump
     character = SKSpriteNode(imageNamed: "jumpingKangaroo")
     
     if character.physicsBody?.velocity.dy == 0 {
