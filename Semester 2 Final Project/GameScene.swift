@@ -14,7 +14,7 @@ let tokenCategory: UInt32 = 2
 let characterCategory: UInt32 = 1
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-
+    
     var token = SKSpriteNode(imageNamed: "coin")
     var counter = 0
     var player: SKSpriteNode!
@@ -34,7 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact){
         let bodyAName = contact.bodyA.node?.name
         let bodyBName = contact.bodyB.node?.name
-
+        
         if bodyAName == "character" && bodyBName == "coin" || bodyAName == "coin" && bodyBName == "character"{
             if bodyAName == "coin"{
                 audioPlayer.play()
@@ -46,18 +46,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 score += 1
             }
         }
-
+        
     }
     var availableTokens = ["coin", "token1", "token2"]
     
-    
-        //    character code
     override func didMove(to view: SKView) {
+       
+        //    character code
         createGestureRecognizer()
         character = self.childNode(withName: "character") as! SKSpriteNode
         self.physicsWorld.contactDelegate = self
-   //     createGrounds()
-        
+       
+        //     createGrounds()
         let playerCenter = CGPoint(x: -376, y: -65)
         player = SKSpriteNode(imageNamed: "bunny")
         player.position = playerCenter
@@ -72,37 +72,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } catch {
             print("Error!")
         }
+       
         //**** Random Tokens *****
-
-
-
-      func addToken () {
-        availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
-        let token = SKSpriteNode(imageNamed: availableTokens[0])
+//        func addToken () {
+//            availableTokens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: availableTokens) as! [String]
+//            let token = SKSpriteNode(imageNamed: availableTokens[0])
+//
+//            let randomTokenSpawn = GKRandomDistribution(lowestValue: 0, highestValue: 200)
+//            let position = CGFloat(randomTokenSpawn.nextInt())
+//
+//            token.position = CGPoint(x: frame.size.width + token.size.width/2, y: position)
+//            self.addChild(token)
+//
+//            let moveDuration:TimeInterval = 6
+//            var actionArray = [SKAction]()
+//
+//            actionArray.append(SKAction.wait(forDuration: 3))
+//            actionArray.append(SKAction.run(addToken))
+//            actionArray.append(SKAction.move(to: CGPoint(x: -550.00, y: position), duration: moveDuration))
+//            actionArray.append(SKAction.wait(forDuration: 5))
+//            actionArray.append(SKAction.removeFromParent())
+//            token.run(SKAction.sequence(actionArray))
+//        }
         
-        let randomTokenSpawn = GKRandomDistribution(lowestValue: 0, highestValue: 200)
-        let position = CGFloat(randomTokenSpawn.nextInt())
-        
-        token.position = CGPoint(x: frame.size.width + token.size.width/2, y: position)
-        //            token.physicsBody = SKPhysicsBody(rectangleOf: token.size)
-        //            token.physicsBody?.isDynamic = true
-        //            token.physicsBody?.collisionBitMask = 0
-        self.addChild(token)
-        
-        let moveDuration:TimeInterval = 6
-        var actionArray = [SKAction]()
-        
-        actionArray.append(SKAction.wait(forDuration: 3))
-        actionArray.append(SKAction.run(addToken))
-        actionArray.append(SKAction.move(to: CGPoint(x: -550.00, y: position), duration: moveDuration))
-        actionArray.append(SKAction.wait(forDuration: 5))
-        actionArray.append(SKAction.removeFromParent())
-        token.run(SKAction.sequence(actionArray))
-        }
-        
-    
         // Score
-        
         scoreLabel = SKLabelNode(text: "Score: 0")
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.fontName = "Verdana-Bold"
@@ -119,40 +112,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if object.name == "enemy" {
                 score -= 1
             }
- 
-         
-
-                }
-    
-    
-//
-        addToken()
-            collisionBetween(character: <#T##SKNode#>, object: <#T##SKNode#>)
-        
-//                let playerCenter = CGPoint(x: -376, y: -65)
-//                player = SKSpriteNode(imageNamed: "bunny")
-//                player.position = playerCenter
-//                self.addChild(player)
-//                player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 157, height: 142), center: playerCenter)
-//
-//                run(SKAction.repeatForever(
-//                    SKAction.sequence([
-//                        SKAction.run(addToken),
-//                        SKAction.wait(forDuration: 1.0)
-//                        ])
-//                ))
-                
-            }
-    
-//    override func update(_ currentTime: TimeInterval) {
-//        moveGrounds()
-//    }
-    
+        }
+    }
     
     //    *** Background ***
     func createGrounds() {
-        
-        
         for i in 0...3 {
             let ground = SKSpriteNode(imageNamed: "city")
             ground.name = "background"
@@ -174,37 +138,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }))
     }
-    }
-    //    ***** Gesture Recognizer *****
-    
-    func createGestureRecognizer() {
-        
-        let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture: )))
-        upGestureRecognizer.direction = .up
-        self.view?.addGestureRecognizer(upGestureRecognizer)
-        
-    }
-    
-    @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
-        print("Jump")
-//        print(character)
-        let jump = CGVector(dx: 0, dy: 1000)
-//        character.physicsBody?.velocity = jump
-        character = SKSpriteNode(imageNamed: "jumpingKangaroo")
+//    ***** Gesture Recognizer *****
 
-        if character.physicsBody?.velocity.dy == 0 {
-            character.physicsBody?.velocity = jump
-            print("Not Moving")
-        } else {
-            print("Moving")
-        }
+func createGestureRecognizer() {
+    
+    let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture: )))
+    upGestureRecognizer.direction = .up
+    self.view?.addGestureRecognizer(upGestureRecognizer)
+    
+}
+
+@objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
+    print("Jump")
+    //        print(character)
+    let jump = CGVector(dx: 0, dy: 1000)
+    //        character.physicsBody?.velocity = jump
+    character = SKSpriteNode(imageNamed: "jumpingKangaroo")
+    
+    if character.physicsBody?.velocity.dy == 0 {
+        character.physicsBody?.velocity = jump
+        print("Not Moving")
+    } else {
+        print("Moving")
     }
-    
-    
-    
-    
-    
+}
 
 
 }
+
+
+
+
+
+
+
 
