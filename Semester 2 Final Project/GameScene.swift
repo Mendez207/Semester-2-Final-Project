@@ -115,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 score -= 1
             }
             
-                }
+        }
                 
 //                addToken()
         
@@ -172,19 +172,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture:)))
         upGestureRecognizer.direction = .up
         self.view?.addGestureRecognizer(upGestureRecognizer)
+        
     }
     
     @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
         print("Jump")
 //        print(character)
         let jump = CGVector(dx: 0, dy: 1000)
+//        character.physicsBody?.velocity = jump
+        character = SKSpriteNode(imageNamed: "jumpingKangaroo")
+
         if character.physicsBody?.velocity.dy == 0 {
             character.physicsBody?.velocity = jump
             print("Not Moving")
         } else {
             print("Moving")
         }
-//        print(character.physicsBody?.velocity)
     }
     
     
