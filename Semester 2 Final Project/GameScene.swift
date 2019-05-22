@@ -53,6 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
         //    character code
     override func didMove(to view: SKView) {
+        createGestureRecognizer()
         character = self.childNode(withName: "character") as! SKSpriteNode
         self.physicsWorld.contactDelegate = self
    //     createGrounds()
@@ -97,8 +98,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         actionArray.append(SKAction.wait(forDuration: 5))
         actionArray.append(SKAction.removeFromParent())
         token.run(SKAction.sequence(actionArray))
-       }
-    
+        }
+        
     
         // Score
         
@@ -173,31 +174,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }))
     }
-    
+    }
     //    ***** Gesture Recognizer *****
     
- //   func createGestureRecognizer() {
-//
-//        let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture:)))
-//        upGestureRecognizer.direction = .up
-//        self.view?.addGestureRecognizer(upGestureRecognizer)
-//    }
-//
-//    @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
-//        print("Jump")
+    func createGestureRecognizer() {
+        
+        let upGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(whenSwiped(gesture: )))
+        upGestureRecognizer.direction = .up
+        self.view?.addGestureRecognizer(upGestureRecognizer)
+        
+    }
+    
+    @objc func whenSwiped(gesture: UISwipeGestureRecognizer) {
+        print("Jump")
 //        print(character)
-//        let jump = CGVector(dx: 0, dy: 1000)
-//        if character.physicsBody?.velocity.dy == 0 {
-//            character.physicsBody?.velocity = jump
-//        }
-//        print(character.physicsBody?.velocity)
-//    }
+        let jump = CGVector(dx: 0, dy: 1000)
+//        character.physicsBody?.velocity = jump
+        character = SKSpriteNode(imageNamed: "jumpingKangaroo")
+
+        if character.physicsBody?.velocity.dy == 0 {
+            character.physicsBody?.velocity = jump
+            print("Not Moving")
+        } else {
+            print("Moving")
+        }
+    }
     
     
     
     
     
+
+
 }
-
-
 
